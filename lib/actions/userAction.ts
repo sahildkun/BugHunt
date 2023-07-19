@@ -55,7 +55,8 @@ export async function addBug(
   pathname: string
 ) {
   const sess = await getAuthSession();
-
+   console.log(sess?.user.id!);
+   
   enum BugStatus {
     raised = 'raised',
     Threat = 'Threat',
@@ -72,7 +73,7 @@ export async function addBug(
       status: status as BugStatus,
       createdBy: {
         connect: {
-          id: sess?.user.id // Assuming sessionId is the user's ID
+          id: sess?.user.id!// Assuming sessionId is the user's ID
         },
       },
       Organization: {
