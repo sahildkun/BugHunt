@@ -13,8 +13,8 @@ export const options: NextAuthOptions = {
     },
     providers: [
         GitHubProvider({
-            clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string,
+            clientId: process.env.GITHUB_ID!,
+            clientSecret: process.env.GITHUB_SECRET!,
         }),
       
       
@@ -27,33 +27,26 @@ export const options: NextAuthOptions = {
           session.user.name = token.name
           session.user.email = token.email
           session.user.image = token.picture
-          session.user.role = token.role
+        
         }
   
         return session
       },
   
       async jwt({ token, user }) {
-          const dbUser = await db.user.findFirst({
-            where: {
-              email: token.email,
-            },
-          })
-    
-          if (!dbUser) {
-            token.id = user!.id
-            return token
-          }
-    
-          
-          return {
-            id: dbUser.id,
-            name: dbUser.name,
-            email: dbUser.email,
-            picture: dbUser.image,
-            role: dbUser.role,
-          }
-        },
+        const dbUser = await db.user.findFirst({
+          where: {
+            email: token.email,
+          },
+        })
+      
+        if (!dbUser) {
+          token.id = user!.id
+          return token
+        }
+      
+        return token; // Return the token object as-is
+      },
         redirect() {
           return '/'
         },  
