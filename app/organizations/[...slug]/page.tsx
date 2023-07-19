@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { DataTable } from '@/components/bugs/bugTable/data-table'
 import { AddBugModal } from '@/components/AddBugForm2'
 import { columns } from '@/components/bugs/bugTable/columns'
-import { Organization } from '@prisma/client'
+
 
 
 
@@ -23,7 +23,7 @@ const OrganizationDetail = async  ({params}: Props) => {
 
    const bugs = await db.bug.findMany({
     where:{
-      organizationId: slug[0]!
+      organizationId: slug[0]
     }
    }
    );

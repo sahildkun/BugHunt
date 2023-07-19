@@ -12,6 +12,7 @@ export async function createOrg (
 ) {
 
 const sess = await getAuthSession();
+console.log(sess?.user.id);
 
 const existingOrg = await db.organization.findFirst({
   where:{
@@ -23,7 +24,7 @@ const existingOrg = await db.organization.findFirst({
 if(existingOrg) {
   throw new Error('already exists')
  }
-
+if(sess?.user.id) {
 await db.organization.create({
     data: {
         name,
@@ -42,6 +43,7 @@ await db.organization.create({
         members: true, // Include the created UserRoleOrganization entry
       },
     });
+  }
 
   redirect('/organizations')
 }
@@ -55,7 +57,7 @@ export async function addBug(
   pathname: string
 ) {
   const sess = await getAuthSession();
-   console.log(sess?.user.id!);
+   console.log(sess?.user.id);
    
   enum BugStatus {
     raised = 'raised',
@@ -73,7 +75,7 @@ export async function addBug(
       status: status as BugStatus,
       createdBy: {
         connect: {
-          id: sess?.user.id!// Assuming sessionId is the user's ID
+          id: sess?.user.id// Assuming sessionId is the user's ID
         },
       },
       Organization: {
