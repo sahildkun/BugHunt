@@ -4,7 +4,9 @@ import { Input } from '@/components/ui/input'
 import { useState } from 'react'
 import { createOrg } from '@/lib/actions/userAction'
 import { Submit } from '@/app/Submit'
-type Props = {}
+type Props = {
+    userId: string
+}
 
 const CreateOrganisation = (props: Props) => {
 
@@ -17,7 +19,7 @@ const CreateOrganisation = (props: Props) => {
        <h1 className='text-4xl font-clash'>Create Organisation</h1> 
         <div className='bg-white dark:bg-slate-900 m-5 p-5 rounded-md shadow-xl'>
             
-      <form action={() => createOrg(name,desc)} className='flex flex-col gap-y-3'>
+      <form action={() => createOrg(name,desc,props.userId)} className='flex flex-col gap-y-3'>
         <Input
       value={name}
       placeholder='Enter Organisation name'

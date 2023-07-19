@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 export async function createOrg (
     name: string, 
     description: string , 
+    userId: string,
    
 ) {
 
@@ -24,17 +25,17 @@ const existingOrg = await db.organization.findFirst({
 if(existingOrg) {
   throw new Error('already exists')
  }
-if(sess?.user.id) {
+if(userId) {
 await db.organization.create({
     data: {
         name,
         description,
         createdBy: {
-          connect: { id: sess?.user.id }, // Connect the organization to the creator
+          connect: { id: userId }, // Connect the organization to the creator
         },
         members: { // Create a UserRoleOrganization entry for the creator as an admin
           create: {
-            userId: sess?.user.id!,
+            userId: userId,
             role: 'ADMIN', // Use the UserRole enum to set the role to 'ADMIN'
           },
         },

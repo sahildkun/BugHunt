@@ -3,13 +3,13 @@ import CreateOrganisation from '@/components/organization/create'
 import { getAuthSession } from '../api/auth/[...nextauth]/options'
 type Props = {}
 
-const Create = (props: Props) => {
+const Create =async (props: Props) => {
 
-  
+  const sess = await getAuthSession();
   
   return (
     <div>
-      <CreateOrganisation/>
+      <CreateOrganisation userId={sess?.user.id!}/>
     </div>
   )
 }
