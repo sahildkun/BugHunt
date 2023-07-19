@@ -7,8 +7,7 @@ import { Session } from 'inspector'
 
 export default async function Home() {
 
-const sess = await getAuthSession();
-  console.log(sess?.user.role); 
+; 
   
   
   return (
