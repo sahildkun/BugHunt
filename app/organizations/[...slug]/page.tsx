@@ -2,9 +2,14 @@ import { db } from '@/lib/db'
 import React from 'react'
 import { format } from 'date-fns'
 import { DataTable } from '@/components/bugs/bugTable/data-table'
-import { Button } from '@/components/ui/button'
 import { AddBugModal } from '@/components/AddBugForm2'
 import { columns } from '@/components/bugs/bugTable/columns'
+import { Organization } from '@prisma/client'
+
+
+
+
+
 type Props = {
     params:{
         slug: string
